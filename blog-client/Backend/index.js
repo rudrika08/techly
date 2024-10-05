@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: ["https://blog-by-you-frontend.vercel.app/"], 
+  origin: process.env.FRONTEND_URL, 
   credentials: true 
 }));
 
