@@ -1,0 +1,97 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  text-align: justify;
+}
+
+/* Navbar brand (logo) */
+.navbar-brand {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.navbar-brand a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand a:hover {
+  color: #f5ba13; /* Add a bright hover effect to the logo */
+}
+
+/* Navbar links container */
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1rem;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.navbar-links a:hover {
+  color: #f5ba13;
+  text-decoration: none;
+}
+
+/* Button styles */
+.navbar .login-button,
+.navbar .logout-button,
+.navbar .create-blog-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border-radius: 25px; /* Rounded buttons */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar .login-button:hover,
+.navbar .logout-button:hover,
+.navbar .create-blog-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Highlighting the active link */
+.navbar-links a.active {
+  border-bottom: 2px solid #f5ba13;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    margin-top: 10px;
+    justify-content: flex-end;
+    flex-direction: column;
+  }
+
+  .navbar .login-button,
+  .navbar .logout-button,
+  .navbar .create-blog-button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

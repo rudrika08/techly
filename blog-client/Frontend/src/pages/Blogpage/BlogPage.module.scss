@@ -1,0 +1,29 @@
+.blogPage {
+  padding: 20px;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.blogList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.blogList p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
