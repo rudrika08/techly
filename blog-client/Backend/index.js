@@ -12,21 +12,15 @@ const Port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cookieParser());
 
-// Allowed origins for development (localhost) and production (Vercel frontend)
-const allowedOrigins = [
-  'https://blog-by-you-frontend.vercel.app', // Production frontend
-  'http://localhost:5173', // Local development frontend
-  'https://www.blog-by-you-frontend.vercel.app', // In case of 'www' usage
-  'http://www.blog-by-you-frontend.vercel.app'  // HTTP version with 'www'
-];
-
 // CORS configuration
 app.use(cors({
-  origin: process.env.FRONTEND_URL, 
-  credentials: true 
+  origin: process.env.FRONTEND_URL, // Ensure the correct frontend URL is in your .env file
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Handle preflight (OPTIONS) requests globally
+// Handle preflight requests
 app.options('*', cors());
 
 // Connect to MongoDB
