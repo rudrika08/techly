@@ -12,22 +12,35 @@ const Port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cookieParser());
 
-// Define allowed origins (Vercel frontend + localhost for development)
-const allowedOrigins = ['https://blog-by-you-frontend.vercel.app', 'http://localhost:5173'];
+// // Define allowed origins (Vercel frontend + localhost for development)
+// const allowedOrigins = ['https://blog-by-you-frontend.vercel.app', 'http://localhost:5173'];
+
+// app.use(cors({
+//   origin: '*',
+//   credentials: true, 
+// }));
+
+// Allow multiple variations of the domain
+const allowedOrigins = [
+  'https://blog-by-you-frontend.vercel.app',
+  'http://blog-by-you-frontend.vercel.app',    // in case HTTP is used
+  'https://www.blog-by-you-frontend.vercel.app', // in case www is used
+  'http://www.blog-by-you-frontend.vercel.app'
+];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true, // Enable cookies and credentials in requests
+    }
+  },
+  credentials: true
 }));
 
 // Handle preflight requests
-app.options('*', cors());
+// app.options('*', cors());
 
 // Connect to MongoDB
 connectDB();
