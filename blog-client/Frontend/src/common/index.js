@@ -1,4 +1,4 @@
-const backendURI="https://blog-by-you.onrender.com";
+const backendURI="http://localhost:8000";
 
 const SummaryApi={
     signup:{
