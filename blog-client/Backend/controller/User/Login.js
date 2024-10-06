@@ -42,9 +42,10 @@ const LoginController = async (req, res) => {
 
         // Cookie options
         const tokenOptions = {
+            domain: '.vercel.app',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'strict', 
+            sameSite: 'none', 
         };
 
         // Send the token in a cookie and the response
