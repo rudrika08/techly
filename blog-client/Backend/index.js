@@ -22,18 +22,8 @@ const allowedOrigins = [
 
 // CORS configuration
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      // Allow the request if the origin is in the list or is undefined (for non-browser requests like Postman)
-      callback(null, true);
-    } else {
-      // Block the request with a proper error message
-      callback(new Error('CORS policy: This origin is not allowed by CORS.'));
-    }
-  },
-  credentials: true,  // Allow cookies, authentication, etc.
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers in the requests
+  origin: process.env.FRONTEND_URL, 
+  credentials: true 
 }));
 
 // Handle preflight (OPTIONS) requests globally
