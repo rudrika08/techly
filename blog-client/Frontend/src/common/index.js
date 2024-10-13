@@ -1,4 +1,4 @@
-const backendURI="http://localhost:8000";
+const backendURI="http://localhost:10000";
 
 const SummaryApi={
     signup:{
