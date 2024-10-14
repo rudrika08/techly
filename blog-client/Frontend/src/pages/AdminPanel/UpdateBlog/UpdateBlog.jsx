@@ -1,14 +1,12 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styles from './UpdateBlog.module.scss';
-import { useParams } from 'react-router-dom';
-import SummaryApi from '../../../common';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import SummaryApi from '../../../common';
 import { BlogContext } from './../../../context/BlogContext';
 
-const UpdateBlog = () => {
+const UpdateBlog = ({ blogId, onClose }) => {
   const { fetchBlog } = useContext(BlogContext);
-  const { id } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
 
   const {
@@ -19,7 +17,7 @@ const UpdateBlog = () => {
     formState: { errors },
   } = useForm();
 
-  // Fetch blog data
+  // Fetch blog data by ID
   const fetchBlogFn = async () => {
     try {
       const response = await fetch(SummaryApi.BlogFetchByBlogId.url, {
@@ -28,7 +26,7 @@ const UpdateBlog = () => {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ id: blogId }), // Pass blogId here
       });
 
       if (!response.ok) {
@@ -54,8 +52,10 @@ const UpdateBlog = () => {
   };
 
   useEffect(() => {
-    fetchBlogFn();
-  }, [id]);
+    if (blogId) {
+      fetchBlogFn(); // Fetch blog data when blogId is available
+    }
+  }, [blogId]);
 
   const onSubmit = async (data) => {
     console.log('Updated Data:', data);
@@ -66,7 +66,7 @@ const UpdateBlog = () => {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ ...data, id }),
+        body: JSON.stringify({ ...data, id: blogId }),
       });
 
       if (!response.ok) {
@@ -76,8 +76,9 @@ const UpdateBlog = () => {
       const updatedData = await response.json();
       console.log(updatedData);
 
-      fetchBlog();
+      fetchBlog(); // Refresh the blog list
       toast.success('Blog Updated Successfully');
+      onClose(); // Close the modal
     } catch (error) {
       console.error('Error updating blog:', error);
       toast.error('Failed to update blog');

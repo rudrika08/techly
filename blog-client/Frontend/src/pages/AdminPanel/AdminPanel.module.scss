@@ -1,16 +1,14 @@
 .adminPanel {
     display: flex;
-    flex-direction: column;
     align-items: center;
     padding: 20px;
     background-color: #f5f5f5;
+    width: 100vw;
   }
   
   .adminPanelList {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0 auto;
+    gap: 20px;
   }
   
   .adminPanelItem {
@@ -84,11 +82,6 @@
     padding: 20px;
 }
 
-.adminPanelList {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
 
 .adminPanelItem {
     border: 1px solid #ccc;
@@ -101,15 +94,46 @@
     display: flex;
     justify-content: space-between; /* Space between buttons */
     margin-top: 10px; /* Add some space above the buttons */
+    gap: 10px;
 }
 
-.buttonContainer a,
-.buttonContainer svg {
-    cursor: pointer; /* Change cursor for better UX */
-    transition: transform 0.2s; /* Transition effect for hover */
+
+.editButton, .deleteButton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.buttonContainer a:hover,
-.buttonContainer svg:hover {
-    transform: scale(1.5); /* Scale up on hover */
+.editButton {
+  background-color: #4CAF50; /* Green for edit */
+  color: white;
+}
+
+.deleteButton {
+  background-color: #f44336; /* Red for delete */
+  color: white;
+}
+
+
+
+.modal {
+  background: white;
+  // padding: 20px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
 }
