@@ -5,7 +5,7 @@ import BlogPage from './../pages/Blogpage/BlogPage';
 import BlogForm from './../components/BlogForm/BlogForm';
 import Login from './../Authentication/Login/Login';
 import Signup from './../Authentication/Signup/Signup';
-import AdminPanel from './../pages/AdminPanel/AdminPanel';
+import AdminPanel from './../pages/AdminPanel/AdminDashboard/AdminDashboard';
 import EditBlogPage from './../pages/AdminPanel/UpdateBlog/UpdateBlog';
 // import { ProtectedRoute } from './../helper/ProtectedRoute';
 import ProtectedRoute from './../helper/ProtectedRouter';

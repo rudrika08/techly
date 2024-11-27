@@ -1,88 +1,75 @@
 .container {
-    max-width: 600px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom, #ffffff, #f7f7f7);
+  position: relative;
+
   h1 {
-    text-align: center;
     font-size: 2rem;
-    color: #333;
+    color: #ff6a00;
+    text-align: center;
     margin-bottom: 20px;
+    text-shadow: 1px 2px 2px rgba(255, 122, 0, 0.5);
   }
-  
+
   form {
     display: flex;
     flex-direction: column;
-  }
-  
-  label {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  input, textarea {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    transition: border-color 0.3s ease;
-  }
-  
-  input:focus, textarea:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 150px;
-  }
-  
-  .updateButton {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .updateButton:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-  }
-  
-  .error {
-    color: red;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .container {
-      padding: 15px;
+
+    label {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #333;
     }
-  
-    h1 {
-      font-size: 1.5rem;
-    }
-  
-    input, textarea {
-      padding: 8px;
-      font-size: 0.9rem;
-    }
-  
-    .updateButton {
-      padding: 10px;
+
+    input,
+    textarea {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
       font-size: 1rem;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: #ff6a00;
+        box-shadow: 0 4px 8px rgba(255, 106, 0, 0.2);
+        outline: none;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 200px;
+    }
+
+    .updateButton {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #ff6a00, #ffcc33);
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(255, 106, 0, 0.3);
+      }
     }
   }
-  
+
+  .error {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    margin-top: -15px;
+    margin-bottom: 15px;
+  }
+}
