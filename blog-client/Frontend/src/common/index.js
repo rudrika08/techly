@@ -1,4 +1,4 @@
-const backendURI="http://localhost:10000";
+const backendURI="import.meta.env.VITE_BACKEND_URI";
 
 const SummaryApi={
     signup:{
