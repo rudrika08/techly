@@ -48,7 +48,7 @@ const BlogPage = () => {
             />
           ))
         ) : (
-          <center><p>No blog posts available.</p></center>
+          <center style={{ fontSize: '4rem' }}><p>No blog posts available.</p></center>
         )}
       </div>
     </div>
