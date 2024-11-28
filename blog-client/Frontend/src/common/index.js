@@ -1,4 +1,4 @@
-const backendURI = import.meta.env.VITE_BACKEND_URI.replace(/\/$/, '');
+const backendURI = import.meta.env.VITE_BACKEND_URI;
 
 console.log('Backend URL:', backendURI);
 

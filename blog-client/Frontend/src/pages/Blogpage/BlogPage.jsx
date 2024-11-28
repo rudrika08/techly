@@ -48,7 +48,7 @@ const BlogPage = () => {
             />
           ))
         ) : (
-          <p>No blog posts available.</p>
+          <center><p>No blog posts available.</p></center>
         )}
       </div>
     </div>
