@@ -4,8 +4,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #333;
-  color: white;
+  background-color: #03101e;
+  color: beige;
   position: relative;
   z-index: 10;
   width: 100%;
@@ -25,13 +25,28 @@
 }
 
 .navbar-brand a:hover {
-  color: #f5ba13; /* Add a bright hover effect to the logo */
+  color: #698bcb; /* Add a bright hover effect to the logo */
 }
 
 /* Navbar links container */
 .navbar-links {
   display: flex;
   align-items: center;
+}
+.navbar .navbar-links button {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-left: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar .navbar-links button:hover::after {
+  width: 100%;
 }
 
 .navbar-links a {
@@ -44,7 +59,7 @@
 }
 
 .navbar-links a:hover {
-  color: #f5ba13;
+  color: #7aaef6;
   text-decoration: none;
 }
 
@@ -52,12 +67,12 @@
 .navbar .login-button,
 .navbar .logout-button,
 .navbar .create-blog-button {
-  background-color: #007bff;
+  
   border: none;
   color: white;
   padding: 10px 20px;
   margin-left: 20px;
-  border-radius: 25px; /* Rounded buttons */
+
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -66,9 +81,11 @@
 .navbar .login-button:hover,
 .navbar .logout-button:hover,
 .navbar .create-blog-button:hover {
-  background-color: #0056b3;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  color: #7aaef6;
+  
 }
+
+
 
 /* Highlighting the active link */
 .navbar-links a.active {

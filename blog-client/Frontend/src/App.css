@@ -20,11 +20,11 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.navbar {
+/* .navbar {
   background-color: #333;
   color: #fff;
   padding: 10px;
-}
+} */
 
 .navbar a {
   color: #fff;
@@ -32,10 +32,10 @@ body {
   margin: 0 10px;
 }
 
-.footer {
+/* .footer {
   background-color: #333;
   color: #fff;
   padding: 10px;
   text-align: center;
   clear: both;
-}
+} */
