@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import authService from '../../Authentication/Auth/Authservice';
 import './Nav.css'; // Assume the CSS is already created
@@ -7,20 +7,19 @@ import { setUserDetails } from './../../store/userSlice';
 import SummaryApi from '../../common';
 import { toast } from 'react-toastify';
 
-
 const Navbar = () => {
   const user = useSelector(state => state?.user?.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogout=async()=>{
-    try{
+  const handleLogout = async () => {
+    try {
       const response = await fetch(SummaryApi.logout.url, {
         method: SummaryApi.logout.method,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        credentials: 'include'
+        credentials: 'include',
       });
       const data = await response.json();
       if (!response.ok) {
@@ -29,28 +28,28 @@ const Navbar = () => {
       } else {
         toast.success(data.message);
         dispatch(setUserDetails(null));
-       navigate('/login');
+        navigate('/login');
       }
-
-    }catch(error){
+    } catch (error) {
       toast.error(error.message);
       console.log(error);
     }
-  }
+  };
 
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/">Blog App</Link>
+        <Link to="/">DevDoodles</Link>
       </div>
-      
+
       <div className="navbar-links">
         {user && (
-          <Link to='/user-details' className="user-details">
+          <Link to="/user-details" className="user-details">
             <p>{user.username}</p>
           </Link>
         )}
-        <Link to="/">Home</Link>
+        <Link to="/">Home</Link> {/* Linked to HomePage */}
+        <Link to="/blog">Blogs</Link> {/* Linked to BlogPage */}
         {user && (
           <button className="create-blog-button" onClick={() => navigate('/create-blog')}>
             Create Blog

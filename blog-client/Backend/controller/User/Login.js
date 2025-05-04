@@ -45,7 +45,7 @@ const LoginController = async (req, res) => {
             // domain: '.vercel.app',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'none', 
+            sameSite: 'strict', 
         };
 
         // Send the token in a cookie and the response

@@ -8,12 +8,8 @@ import Navbar from './layouts/Navbar/Nav';
 import Footer from './layouts/Footer/Footer';
 import './App.css';
 import { Outlet } from 'react-router-dom';
-
-
-
 const App = () => {
   const dispatch = useDispatch();
-
   const fetchUser = async () => {
     try {
       const token = localStorage.getItem('token');
