@@ -1,5 +1,5 @@
 .blog-card {
-  background-color: rgba(150, 158, 213, 0.9);
+  background-color: transparent;
   color: #fff;
   border-radius: 12px;
   padding: 1.5rem;
@@ -30,7 +30,7 @@
 .blog-card-title {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #000000; /* reddish-orange */
+  color: #f3efef; /* reddish-orange */
   margin-bottom: 0.5rem;
   height: 35px;
   overflow: hidden;
@@ -57,7 +57,7 @@
 
 .blog-card-button {
   margin-top: auto;
-  background-color: #1e88e5;
+  background-color: rgba(255, 255, 255, 0.1);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -67,5 +67,5 @@
 }
 
 .blog-card-button:hover {
-  background-color: #1565c0;
+  background-color: transparent;
 }
