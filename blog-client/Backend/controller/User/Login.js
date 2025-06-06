@@ -45,7 +45,7 @@ const LoginController = async (req, res) => {
             // domain: '.vercel.app',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'none', 
+            sameSite: 'strict', 
         };
 
         // Send the token in a cookie and the response
@@ -57,7 +57,7 @@ const LoginController = async (req, res) => {
             },
             success: true
         });
-
+    console.log("token", token);
     } catch (err) {
         console.error("Login error:", err);
         return res.status(500).json({ message: 'Internal server error', success: false });

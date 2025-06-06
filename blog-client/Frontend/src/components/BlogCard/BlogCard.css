@@ -1,112 +1,71 @@
 .blog-card {
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 100%;
-  transition: box-shadow 0.3s ease;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 350px;
+  min-height: 450px;
+  width: 100%;
+  margin-bottom: 40px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .blog-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .blog-card-image {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 15px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .blog-card-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+  color: #f3efef; /* reddish-orange */
+  margin-bottom: 0.5rem;
+  height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .blog-card-content {
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 20px;
-  white-space: nowrap;
+  color: #ccc;
+  line-height: 1.4;
+  margin-bottom: 1rem;
   overflow: hidden;
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .blog-card-author {
-  font-size: 0.9rem;
-  color: skyblue;
-  margin-top: auto;
-  border: 1px solid #666;
-  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
 }
 
 .blog-card-button {
-  padding: 8px 16px;
+  margin-top: auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
+  transition: background-color 0.2s ease;
 }
 
 .blog-card-button:hover {
-  background-color: #0056b3;
-}
-
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-full-content {
-  background-color: #fff;
-  padding: 30px;
-  max-width: 800px;
-  width: 90%;
-  height: 90%;
-  overflow-y: auto;
-  border-radius: 10px;
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #333;
-}
-
-.modal-image {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  margin-bottom: 15px;
-}
-
-.modal-full-content h2 {
-  margin-bottom: 10px;
-}
-
-.modal-full-content p {
-  margin-bottom: 20px;
-  font-size: 1rem;
+  background-color: transparent;
 }
