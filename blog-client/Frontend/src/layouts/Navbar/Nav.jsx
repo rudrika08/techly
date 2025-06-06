@@ -87,7 +87,7 @@ const Navbar = () => {
         <Link to="/blog">Blogs</Link>
 
         {user && (
-          <button className="create-blog-button" onClick={() => navigate('/create-blog')}>
+          <button className="create-blog-button" onClick={() => navigate('/blogCreate')}>
             Create Blog
           </button>
         )}
@@ -109,7 +109,7 @@ const Navbar = () => {
             {dropdownOpen && (
               <div className="dropdown-menu" ref={dropdownRef}>
                 <Link to="/user-details">Profile</Link>
-                <Link to="/create-blog">Create Blog</Link>
+                <Link to="/blogCreate">Create Blog</Link>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             )}

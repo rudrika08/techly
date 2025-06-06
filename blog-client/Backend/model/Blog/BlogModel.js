@@ -1,12 +1,51 @@
-const express=require('express');
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
+
+const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))$/i;
+
+const categories = [
+  'All Categories',
+  'Tech & Programming',
+  'Business & Finance',
+  'Health & Fitness',
+  'Travel & Adventure',
+  'Lifestyle & Fashion',
+  'Food & Cooking',
+];
+
 const BlogSchema = new mongoose.Schema({
-    title:{type:String,required:true},
-    content:{type:String,required:true},
-    image:{type:String},
-    author:{type:String,required:true},
-    authorId:{type:String,required:true},
-},{
-    timestamps:true
-})
-module.exports=mongoose.model('Blog',BlogSchema);
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (value) {
+        return urlRegex.test(value);
+      },
+      message: 'Invalid image URL',
+    },
+  },
+  author: {
+    type: String,
+    required: true,
+  },
+  authorId: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: [String],              // <-- changed to array of strings
+    default: ['All Categories'], // <-- default is an array
+    enum: categories,            // <-- optional: ensure category values are from predefined list
+  },
+}, {
+  timestamps: true,
+});
+
+module.exports = mongoose.model('Blog', BlogSchema);

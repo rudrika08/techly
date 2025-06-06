@@ -1,5 +1,5 @@
 import React from 'react';
-import BlogForm from '../../../components/BlogForm/BlogForm';
+import BlogForm from '../../../components/BlogCreate/CreateBlog';
 import styles from './CreateBlog.module.scss';
 
 const CreateBlog = () => {

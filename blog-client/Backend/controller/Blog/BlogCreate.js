@@ -2,31 +2,54 @@ const BlogModel = require("../../model/Blog/BlogModel");
 const UserModel = require("../../model/User/UserModel");
 
 const BlogCreateController = async (req, res) => {
-    try{
-        const userID=req.user._id;
-        const user=await UserModel.findById(userID);
-        const blog=req.body;
-        const newBlog={
-            title:blog.title,
-            content:blog.content,
-            image:blog.image,
-            author:user.username,
-            authorId:userID
-        }
+  try {
+    const userID = req.user._id;
 
-        const createdBlog = await BlogModel.create(newBlog);
-        return res.status(200).json({
-            message: "Blog created successfully",
-            success: true,
-            data: createdBlog,
-        });
-    }catch(error){
-        console.error(error);
-        return res.status(500).json({
-            message: "Internal server error",
-            success: false,
-        });
+    // Check if user exists
+    const user = await UserModel.findById(userID);
+    if (!user) {
+      return res.status(404).json({
+        message: "User  not found",
+        success: false,
+      });
     }
-}
 
-module.exports = BlogCreateController
+    // Validate required fields
+    const { title, content, image, category } = req.body;
+    if (!title || !content || !image) {
+      return res.status(400).json({
+        message: "Title, content, and image are required",
+        success: false,
+      });
+    }
+
+    // Ensure category is an array, default to ['All Categories'] if not provided
+    const blogCategory = Array.isArray(category) && category.length > 0 ? category : ['All Categories'];
+
+    const newBlog = {
+      title,
+      content,
+      image,
+      category: blogCategory,
+      author: user.username,
+      authorId: userID,
+    };
+
+    const createdBlog = await BlogModel.create(newBlog);
+
+    return res.status(201).json({
+      message: "Blog created successfully",
+      success: true,
+      data: createdBlog,
+    });
+  } catch (error) {
+    console.error("Error creating blog:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+      error: error.message, // Optional: include error message for debugging
+    });
+  }
+};
+
+module.exports = BlogCreateController;
