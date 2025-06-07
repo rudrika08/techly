@@ -14,20 +14,21 @@ async function authToken(req, res, next) {
       });
     }
 
-    // Verify the token
+    // Promise-based verification of the token
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.status(401).json({
-          message: err.name === "TokenExpiredError" ? "Token has expired" : "Invalid token log in",
+          message: err.name === "TokenExpiredError" ? "Token has expired" : "Invalid token, log in again",
           data: [],
           error: true,
           success: false,
         });
       }
 
+      // Save the decoded user data to the request object
       req.user = decoded.data; 
-      console.log('Decoded User:', req.user);
-      next(); 
+      console.log('Decoded User:', req.user);  // For debugging, remove in production
+      next(); // Continue to the next middleware or route handler
     });
   } catch (err) {
     return res.status(500).json({

@@ -1,102 +1,120 @@
 import React, { useEffect, useState } from 'react';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import styles from './BlogPage.module.scss';
-import SummaryApi from '../../common';
-import * as motion from 'motion/react-client';
+import LeftSidebar from '../../layouts/Blog/Leftsidebar';
+import RightSidebar from '../../layouts/Blog/Rightsidebar';
+import posts from '../../../public/data/post.json';  // Adjust path based on your project structure
 
 const BlogPage = () => {
-  const [posts, setPosts] = useState([]);
+  const [postsData, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [sortOrder, setSortOrder] = useState('latest');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(SummaryApi.BlogFetch.url, {
-          method: SummaryApi.BlogFetch.method,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-
-        const data = await response.json();
-        setPosts(data.data); // Assuming data.data is the array of blog posts
-      } catch (error) {
-        setError(error.message);
-        console.error('Error fetching posts:', error);
-      }
-    };
-
-    fetchPosts();
+    try {
+      setPosts(posts);
+    } catch (error) {
+      setError('Failed to load posts');
+    }
   }, []);
 
   const renderStars = () => {
     const stars = [];
     const numberOfStars = 100;
+
     for (let i = 0; i < numberOfStars; i++) {
-      const style = {
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        animationDuration: `${Math.random() * 3 + 2}s`,
-        animationDelay: `${Math.random() * 5}s`,
-      };
-      stars.push(<div key={`star-${i}`} className={styles.star} style={style}></div>);
+      stars.push(
+        <div
+          key={`star-${i}`}
+          className={styles.star}
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${Math.random() * 3 + 2}s`,
+            animationDelay: `${Math.random() * 5}s`,
+          }}
+        />
+      );
     }
 
-    // Add 5 shooting stars
     for (let j = 0; j < 5; j++) {
-      const style = {
-        top: `${Math.random() * 80}%`,
-        left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 10}s`,
-      };
       stars.push(
-        <div key={`shooting-${j}`} className={styles.shootingStar} style={style}></div>
+        <div
+          key={`shooting-${j}`}
+          className={styles.shootingStar}
+          style={{
+            top: `${Math.random() * 80}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 10}s`,
+          }}
+        />
       );
     }
 
     return stars;
   };
 
+  const filteredData = postsData
+    .filter((blog) => {
+      let authorObj;
+      try {
+        authorObj = JSON.parse(blog.author);
+      } catch (err) {
+        authorObj = { department: null };
+      }
+      return selectedDepartment ? authorObj.department === selectedDepartment : true;
+    })
+    .filter((blog) =>
+      blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((blog) => {
+      let approvalObj;
+      try {
+        approvalObj = JSON.parse(blog.approval);
+      } catch (err) {
+        approvalObj = { status: false };
+      }
+      return approvalObj.status === true;
+    });
+
+  const sortedData = filteredData.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return sortOrder === 'latest' ? dateB - dateA : dateA - dateB;
+  });
+
   return (
     <div className={styles.blogPage}>
-      <div className={styles.starryBackground}>{renderStars()}</div>
+      <div className={styles.starryBackground}>{renderStars()}</div> {/* Stars Added Back */}
 
-      <h1 className={styles.heading}>Blog Posts</h1>
-      {error && <p className={styles.errorMessage}>{error}</p>}
+      <div className={styles.feed}>
+        <div className={styles.leftSidebar}>
+          <LeftSidebar
+            selectedDepartment={selectedDepartment}
+            onSelectDepartment={setSelectedDepartment}
+            sortOrder={sortOrder}
+            onSortOrderChange={setSortOrder}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+          />
+        </div>
 
-      <div className={styles.blogList}>
-        {posts.length > 0 ? (
-          posts.map((post, index) => (
-            <motion.div
-              key={post.id || index}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                type: 'spring',
-                stiffness: 100,
-                damping: 20,
-                delay: index * 0.1,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <BlogCard
-                title={post.title}
-                content={post.content}
-                image={post.image}
-                author={post.author}
-                index={index}
-              />
-            </motion.div>
-          ))
-        ) : (
-          <center>
-            <p style={{ fontSize: '2rem' }}>No blog posts available.</p>
-          </center>
-        )}
+        <div className={styles.displayFeed}>
+          {error && <p className={styles.errorMessage}>{error}</p>}
+          {sortedData.length > 0 ? (
+            sortedData.map((blog, index) => (
+              <BlogCard key={blog.id || index} data={blog} />
+            ))
+          ) : (
+            <p className={styles.errorMessage}>No blogs match your search criteria.</p>
+          )}
+        </div>
+
+        <div className={styles.rightSidebar}>
+          <RightSidebar blogs={sortedData} />
+        </div>
       </div>
     </div>
   );

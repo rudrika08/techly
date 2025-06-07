@@ -1,0 +1,71 @@
+.leftSidebar {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #ffffff;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.searchBar,
+.filterSection {
+  margin-bottom: 2rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: #bbbbbb;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #4fc3f7;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.categorySelect {
+  margin-top: 0.5rem;
+}
+
+.sortInput,
+.categoryInput {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #fff;
+  font-size: 1rem;
+
+  select {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  &:focus-within {
+    border-color: #4fc3f7;
+  }
+}

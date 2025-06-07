@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import * as motion from "motion/react-client";
 import './BlogCard.css';
 
-const BlogCard = ({ title, content, image, author, index }) => {
+const BlogCard = ({ data }) => {
+  const { title, content, image, author, index } = data;  // Destructure the 'data' prop
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {

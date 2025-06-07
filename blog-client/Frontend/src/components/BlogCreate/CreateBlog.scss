@@ -1,0 +1,125 @@
+.CreateBlog {
+  margin: 50px auto;
+  padding: 30px;
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: 4px 4px 10px #13435f, -4px -4px 10px #0c4160;
+  max-width: 800px;
+  font-family: 'Arial', sans-serif;
+
+  h2 {
+    text-align: center;
+    color: #fdfdfd;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px #e6e6e6;
+  }
+
+  form {
+    .formGroup {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        font-size: 1.1rem;
+        color: #fdfdfd;
+        margin-bottom: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background: transparent;
+        color: #f2eeee;
+
+        &:focus {
+          border-color: #c4d4e4;
+          outline: none;
+          background: transparent;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        height: 120px;
+      }
+
+      .quillEditor {
+        background-color: transparent;
+        color: #f2eeee;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        min-height: 200px;
+        margin-bottom: 30px;
+
+        .ql-toolbar.ql-snow {
+          background-color: #e6f0ff;
+          border-radius: 8px 8px 0 0;
+        }
+
+        .ql-container.ql-snow {
+          border-radius: 0 0 8px 8px;
+        }
+      }
+    }
+
+    .submitButton {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(145deg, #06213d, #0056b3);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(145deg, #68acf4, #00418a);
+        transform: translateY(-2px);
+        box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  // Responsive styles
+  @media (max-width: 768px) {
+    padding: 20px;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    form {
+      .formGroup {
+        input,
+        textarea {
+          padding: 10px;
+          font-size: 0.9rem;
+        }
+      }
+
+      .submitButton {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

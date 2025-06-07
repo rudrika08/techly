@@ -5,7 +5,7 @@
   color: white;
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   overflow: hidden;
-  perspective: 1px; // for parallax effect
+  perspective: 1px;
 }
 
 .starryBackground {
@@ -14,13 +14,12 @@
   left: 0;
   width: 100%;
   height: 200%;
-  transform: translateZ(-1px) scale(2); // parallax scrolling effect
+  transform: translateZ(-1px) scale(2);
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
-// Twinkling Stars
 .star {
   position: absolute;
   width: 2px;
@@ -40,7 +39,6 @@
   }
 }
 
-// Shooting Stars
 .shootingStar {
   position: absolute;
   width: 150px;
@@ -61,29 +59,29 @@
   }
 }
 
-// Foreground content
-.heading {
+.feed {
+  display: flex;
+  gap: 1.5rem;
   position: relative;
   z-index: 1;
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 2rem;
 }
 
-.blogList {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-   // 3 columns
-  // gap: 2rem;
-  z-index: 1;
-  width: 100%;
-  padding: 1rem;
+.leftSidebar,
+.rightSidebar {
+  flex: 1;
+}
 
+.displayFeed {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  z-index: 1;
 }
 
 .errorMessage {
   color: red;
-  position: relative;
-  z-index: 1;
+  font-size: 1.2rem;
   text-align: center;
+  grid-column: span 3;
 }
