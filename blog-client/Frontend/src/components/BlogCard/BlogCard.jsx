@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import * as motion from "motion/react-client";
-import './BlogCard.css';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import "./BlogCard.css";
 
 const BlogCard = ({ data }) => {
-  const { title, content, image, author, index } = data;  // Destructure the 'data' prop
+  const { title, content, image, author } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const toggleModal = (e) => {
+    e.stopPropagation();
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
@@ -18,25 +19,45 @@ const BlogCard = ({ data }) => {
         whileInView="onscreen"
         viewport={{ amount: 0.3, once: true }}
         variants={cardVariants}
+        onClick={toggleModal}
       >
-        {image && <img src={image} alt={title || 'Blog Post'} className="blog-card-image" />}
-        <h2 className="blog-card-title">{title || 'Untitled Post'}</h2>
-        <p className="blog-card-content">{content || 'No content available.'}</p>
-        <p className="blog-card-author">Author: {author || 'Unknown'}</p>
-        <button className="blog-card-button" onClick={toggleModal}>Read More</button>
+        {image && <img src={image} alt={title} className="blog-card-image" />}
+        <h2 className="blog-card-title">
+          {title || "Untitled Blog"}
+        </h2>
+        <p className="blog-card-content">
+          {content ? content.slice(0, 100) + "…" : "No content available."}
+        </p>
+        <p className="blog-card-author">
+          {author ? `Author: ${author}` : "Unknown"}
+        </p>
+        <button
+          className="blog-card-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleModal(e);
+          }}>
+          Read More
+        </button>
       </motion.div>
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={toggleModal}>
-          <div className="modal-full-content" onClick={(e) => e.stopPropagation()}>
-            <span className="modal-close" onClick={toggleModal}>&times;</span>
-            <h2>{title || 'Untitled Post'}</h2>
-            {image && <img src={image} alt={title} className="modal-image" />}
-            <p>{content || 'No content available.'}</p>
-            <p>Author: {author || 'Unknown'}</p>
+          <div
+            className="modal-full-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="modal-close" onClick={toggleModal}>
+              &times;
+            </span>
+            <h2>{title || "Untitled Blog"}</h2>
+            {image && <img src={image} alt={title} />}
+            <p>{content || "No content available."}</p>
+            <p>Author: {author ? author : "Unknown"}</p>
           </div>
         </div>
       )}
+
     </>
   );
 };

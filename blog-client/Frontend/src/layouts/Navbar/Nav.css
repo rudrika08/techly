@@ -1,193 +1,127 @@
-/* Base Styling */
-body {
-  margin: 0;
-  background: linear-gradient(145deg, #06152f, #020c1e); /* Or a solid color like #0a101a */
-  color: white;
-}
-
-body, .navbar {
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translateZ(0);
-}
-
-/* Navbar container */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background: linear-gradient(145deg, #06152f, #020c1e); /* Same as body */
-  border-bottom: none;
-  box-shadow: none;
-  color: beige;
-  width: 100%;
-  text-align: justify;
-}
-
-/* Navbar brand (logo) */
-.navbar-brand {
-  font-size: 1.8em;
-  font-weight: bold;
-}
-
-.navbar-brand a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-brand a:hover {
-  color: #698bcb; /* Hover effect for logo */
-}
-
-/* Navbar links container */
-.navbar-links {
+  background: #111111; 
+  color: #fffccf;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
 
-.navbar .navbar-links button {
-  background: transparent;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin-left: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  position: relative;
-}
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
 
-.navbar .navbar-links button:hover::after {
-  width: 100%;
-}
+    a {
+      color: #fffccf;
+      text-decoration: none;
 
-.navbar-links a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1rem;
-  position: relative;
-  padding-bottom: 2px;
-}
-
-.navbar-links a:hover {
-  color: #7aaef6;
-  text-decoration: none;
-}
-
-/* Buttons */
-.navbar .login-button,
-.navbar .logout-button,
-.navbar .create-blog-button {
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  margin-left: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar .login-button:hover,
-.navbar .logout-button:hover,
-.navbar .create-blog-button:hover {
-  color: #7aaef6;
-}
-
-/* Avatar & Dropdown */
-.navbar-user {
-  position: relative;
-  margin-left: 20px;
-}
-
-.user-avatar {
-  width: 40px;              /* or any desired size */
-  height: 40px;
-  border-radius: 50%;
-  background-color: #2c3e50; /* adjust color as needed */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;          /* adjust font size as needed */
-  cursor: pointer;
-  overflow: hidden;
-
-  span{     
-    font-size: 1.2rem;
-    margin-left: 10px;
-  }
-}
-
-
-.user-avatar:hover {
-  background-color: #3d5a80;
-}
-
-.user-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: #0a101a;
-  border-radius: 8px;
-  padding: 10px;
-  min-width: 140px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  z-index: 100;
-}
-
-.dropdown-menu a,
-.dropdown-menu button {
-  color: white;
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 8px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-decoration: none;
-}
-
-.dropdown-menu a:hover,
-.dropdown-menu button:hover {
-  background-color: #1a2b44;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+      &:hover {
+        color: #00ff7f;
+      }
+    }
   }
 
   .navbar-links {
-    margin-top: 10px;
-    justify-content: flex-end;
-    flex-direction: column;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    a {
+      color: #fffccf;
+      text-decoration: none;
+      font-size: 1rem;
+
+
+      border-radius: 0.5rem;
+
+      &:hover {
+        color: #00ff7f;
+      }
+    }
+
+    .create-blog-button {
+      color: #fffccf;
+      background-color: #000022;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        color: #04e466;
+        background-color: #000022;
+      }
+    }
   }
 
-  .navbar .login-button,
-  .navbar .logout-button,
-  .navbar .create-blog-button {
-    margin-left: 0;
-    margin-top: 10px;
-  }
+  .navbar-user {
+    position: relative;
 
-  .dropdown-menu {
-    top: 45px;
-    right: 10px;
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: #fffccf;
+      color: #000022;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      cursor: pointer;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 50px;
+      color: #fffccf;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 14px #000022;
+
+      a,
+      button {
+        background: none;
+        border: none;
+        color: #fffccf;
+
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+
+        &:hover {
+          color: #00ff7f;
+        }
+      }
+    }
   }
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+
+    .navbar-links {
+      gap: 0.5rem;
+
+      a {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+

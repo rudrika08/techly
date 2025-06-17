@@ -1,30 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import BlogCard from '../../components/BlogCard/BlogCard';
-import styles from './BlogPage.module.scss';
-import LeftSidebar from '../../layouts/Blog/Leftsidebar';
-import RightSidebar from '../../layouts/Blog/Rightsidebar';
-import posts from '../../../public/data/post.json';  // Adjust path based on your project structure
+import React, { useEffect, useState } from "react";
+import BlogCard from "../../components/BlogCard/BlogCard";
+import styles from "./BlogPage.module.scss";
+import posts from "../../../public/data/post.json";
 
 const BlogPage = () => {
   const [postsData, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const [sortOrder, setSortOrder] = useState('latest');
+  const [sortOrder, setSortOrder] = useState("latest");
+
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
     try {
       setPosts(posts);
     } catch (error) {
-      setError('Failed to load posts');
+      setError("Failed to load posts.");
     }
   }, []);
 
   const renderStars = () => {
     const stars = [];
-    const numberOfStars = 100;
 
-    for (let i = 0; i < numberOfStars; i++) {
+    for (let i = 0; i < 100; i++) {
       stars.push(
         <div
           key={`star-${i}`}
@@ -35,7 +34,7 @@ const BlogPage = () => {
             animationDuration: `${Math.random() * 3 + 2}s`,
             animationDelay: `${Math.random() * 5}s`,
           }}
-        />
+        ></div>
       );
     }
 
@@ -44,12 +43,10 @@ const BlogPage = () => {
         <div
           key={`shooting-${j}`}
           className={styles.shootingStar}
-          style={{
-            top: `${Math.random() * 80}%`,
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 10}s`,
-          }}
-        />
+          style={{ top: `${Math.random() * 80}%`,
+                   left: `${Math.random() * 100}%`,
+                   animationDelay: `${Math.random() * 10}s` }}
+        ></div>
       );
     }
 
@@ -58,7 +55,7 @@ const BlogPage = () => {
 
   const filteredData = postsData
     .filter((blog) => {
-      let authorObj;
+      let authorObj = {};
       try {
         authorObj = JSON.parse(blog.author);
       } catch (err) {
@@ -67,54 +64,57 @@ const BlogPage = () => {
       return selectedDepartment ? authorObj.department === selectedDepartment : true;
     })
     .filter((blog) =>
-      blog.title.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .filter((blog) => {
-      let approvalObj;
-      try {
-        approvalObj = JSON.parse(blog.approval);
-      } catch (err) {
-        approvalObj = { status: false };
-      }
-      return approvalObj.status === true;
-    });
+      blog.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      JSON.parse(blog.approval).status === true
+    );
 
   const sortedData = filteredData.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
-    return sortOrder === 'latest' ? dateB - dateA : dateA - dateB;
+    return sortOrder === "latest" ? dateB - dateA : dateA - dateB;
   });
 
   return (
     <div className={styles.blogPage}>
-      <div className={styles.starryBackground}>{renderStars()}</div> {/* Stars Added Back */}
+      {/* Starry Background */}
+      <div className={styles.starryBackground}>{renderStars()}</div>
 
-      <div className={styles.feed}>
-        <div className={styles.leftSidebar}>
-          <LeftSidebar
-            selectedDepartment={selectedDepartment}
-            onSelectDepartment={setSelectedDepartment}
-            sortOrder={sortOrder}
-            onSortOrderChange={setSortOrder}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-          />
-        </div>
+      {/* Filter Button */}
+    <button
+  className={styles.filterBtn}
+  onClick={() => setIsFilterOpen((prev) => !prev)}
+>
+  Filter
+</button>
 
-        <div className={styles.displayFeed}>
-          {error && <p className={styles.errorMessage}>{error}</p>}
-          {sortedData.length > 0 ? (
-            sortedData.map((blog, index) => (
-              <BlogCard key={blog.id || index} data={blog} />
-            ))
-          ) : (
-            <p className={styles.errorMessage}>No blogs match your search criteria.</p>
-          )}
-        </div>
+{isFilterOpen && (
+  <div className={styles.dropdownMenu}>
+    {/* Sort Filter */}
+    <select
+      value={sortOrder}
+      onChange={(e) => setSortOrder(e.target.value)}
+      className={styles.select}
+    >
+      <option value="latest">Latest first</option>
+      <option value="oldest">Oldest first</option>
+    </select>
+  </div>
+)}
 
-        <div className={styles.rightSidebar}>
-          <RightSidebar blogs={sortedData} />
-        </div>
+      {/* Blog Cards Grid */}
+      <div className={styles.cardGrid}>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+
+        {sortedData.length > 0 ? (
+          sortedData.map((blog, index) => (
+            <BlogCard key={blog.id || index} data={blog} />
+          ))
+        ) : (
+          <p className={styles.errorMessage}>
+            No blogs match your search criteria.
+          </p>
+        )}
+
       </div>
     </div>
   );

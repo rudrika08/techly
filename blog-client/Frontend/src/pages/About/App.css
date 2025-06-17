@@ -1,0 +1,59 @@
+.about-section {
+  padding: 4rem 2rem;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #000022;
+  }
+
+  p {
+    color: #000022;
+    margin-bottom: 1rem;
+  }
+
+  .about-content {
+    display: flex;
+    gap: 2rem;
+
+    .about-text {
+      flex: 1;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      button {
+        padding: 0.75rem 1.5rem;
+        background: none;
+        border: 1px solid #000022;
+        border-radius: 0.5rem;
+        color: #000022;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background: #000022;
+          color: #fffccf;
+        }
+      }
+    }
+
+    img {
+      border-radius: 0.5rem;
+      width: 50%;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-content {
+      flex-direction: column;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

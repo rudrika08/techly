@@ -27,7 +27,7 @@ const CreateBlog = () => {
   e.preventDefault();
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/blogCreate`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/blogCreate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -79,7 +79,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/">DevDoodles</Link>
+        <Link to="/">Techly</Link>
       </div>
 
       <div className="navbar-links">
@@ -109,7 +109,6 @@ const Navbar = () => {
             {dropdownOpen && (
               <div className="dropdown-menu" ref={dropdownRef}>
                 <Link to="/user-details">Profile</Link>
-                <Link to="/blogCreate">Create Blog</Link>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             )}

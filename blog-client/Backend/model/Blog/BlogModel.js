@@ -40,9 +40,9 @@ const BlogSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: [String],              // <-- changed to array of strings
-    default: ['All Categories'], // <-- default is an array
-    enum: categories,            // <-- optional: ensure category values are from predefined list
+    type: [String],              
+    default: ['All Categories'], 
+    enum: categories,            
   },
 }, {
   timestamps: true,
