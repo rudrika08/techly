@@ -22,92 +22,124 @@ const CreateBlog = () => {
     const [selectedCategory, setSelectedCategory] = useState('All Categories');
     const navigate = useNavigate();
 
-   const handleSubmit = async (e) => {
-  const token = localStorage.getItem('token');
-  e.preventDefault();
+    const handleSubmit = async (e) => {
+        const token = localStorage.getItem('token');
+        e.preventDefault();
 
-  try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/blogCreate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        title,
-        content,
-        image,
-        category: selectedCategory,
-      }),
-    });
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/blogCreate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    title,
+                    content,
+                    image,
+                    category: selectedCategory,
+                }),
+            });
 
-    const data = await response.json();
+            const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Failed to create blog');
-    }
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to create blog');
+            }
 
-    toast.success('Blog created successfully!');
-    navigate('/');
-  } catch (error) {
-    toast.error(error.message || 'Error creating blog');
-  }
-};
-
+            toast.success('Blog created successfully!');
+            navigate('/');
+        } catch (error) {
+            toast.error(error.message || 'Error creating blog');
+        }
+    };
 
     return (
-        <div className="CreateBlog">
-            <h2>Create New Blog</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="formGroup">
-                    <label>Title:</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
+        <div className="create-blog-container">
+            {/* Background decorative elements */}
+            <div className="bg-decoration bg-decoration-1"></div>
+            <div className="bg-decoration bg-decoration-2"></div>
+            <div className="bg-decoration bg-decoration-3"></div>
+            
+            <div className="create-blog-content">
+                <div className="header-section">
+                    <div className="sparkle-icon">✨</div>
+                    <h1 className="main-title">Create New</h1>
+                    <h2 className="sub-title">Blog</h2>
+                    <p className="description">Share your thoughts and insights with the community</p>
                 </div>
 
-                <div className="formGroup">
-                    <label>Category:</label>
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                    >
-                        {categories.map((category) => (
-                            <option key={category} value={category}>
-                                {category}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <form onSubmit={handleSubmit} className="blog-form">
+                    <div className="form-grid">
+                        <div className="form-group full-width">
+                            <label htmlFor="title">Article Title</label>
+                            <input
+                                id="title"
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Enter your blog title..."
+                                required
+                                className="input-field"
+                            />
+                        </div>
 
-                <div className="formGroup">
-                    <label>Image URL:</label>
-                    <input
-                        type="url"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        placeholder="https://example.com/image.jpg"
-                        required
-                    />
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="category">Category</label>
+                            <div className="select-wrapper">
+                                <select
+                                    id="category"
+                                    value={selectedCategory}
+                                    onChange={(e) => setSelectedCategory(e.target.value)}
+                                    className="select-field"
+                                >
+                                    {categories.map((category) => (
+                                        <option key={category} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
 
-                <div className="formGroup">
-                    <label>Content:</label>
-                    <ReactQuill
-                        value={content}
-                        onChange={setContent}
-                        className="quillEditor"
-                    />
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="image">Featured Image</label>
+                            <input
+                                id="image"
+                                type="url"
+                                value={image}
+                                onChange={(e) => setImage(e.target.value)}
+                                placeholder="https://example.com/image.jpg"
+                                required
+                                className="input-field"
+                            />
+                        </div>
 
-                <button type="submit" className="submitButton">
-                    Create Blog
-                </button>
-            </form>
+                        <div className="form-group full-width">
+                            <label htmlFor="content">Content</label>
+                            <div className="editor-wrapper">
+                                <ReactQuill
+                                    value={content}
+                                    onChange={setContent}
+                                    className="quill-editor"
+                                    placeholder="Start writing your blog content here..."
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="form-actions">
+                        <button type="button" className="btn-secondary" onClick={() => navigate('/')}>
+                            Cancel
+                        </button>
+                        <button type="submit" className="btn-primary">
+                            <span>Publish Blog</span>
+                            <div className="btn-glow"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
