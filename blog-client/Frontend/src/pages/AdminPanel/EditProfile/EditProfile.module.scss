@@ -1,179 +1,440 @@
-:root {
-  --color-background: #ffffff;
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
-  --color-border: #e5e7eb;
-  --color-error: #ef4444;
-  --color-focus: #2563eb;
-  --color-button-bg: #111827;
-  --color-button-text: #ffffff;
-  --radius: 0.75rem;
-  --shadow-light: rgba(0, 0, 0, 0.05);
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+// Color Variables
+$primary-bg: #0e0d0d;
+$secondary-bg: #2a2a2a;
+$accent-green: #00ff88;
+$accent-green-hover: #00cc6a;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$text-muted: #808080;
+$border-color: #333333;
+$border-hover: #444444;
+$glass-bg: rgba(10, 1, 1, 0.05);
+$glass-border: rgba(255, 255, 255, 0.1);
+$shadow-light: rgba(0, 255, 136, 0.1);
+$shadow-medium: rgba(0, 255, 136, 0.2);
+$shadow-heavy: rgba(0, 255, 136, 0.3);
+$gradient-primary: linear-gradient(135deg, $accent-green, $accent-green-hover);
+
+// Container
+.container {
+  min-height: 100vh;
+  background: $primary-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.container {
-  max-width: 720px;
-  margin: 3rem auto 6rem auto;
-  background: var(--color-background);
-  padding: 2.5rem 3rem;
-  border-radius: var(--radius);
-  box-shadow: 0 8px 16px var(--shadow-light);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+// Main Card
+.card {
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+  border: 1px solid $glass-border;
+  border-radius: 24px;
+  padding: 3rem;
+  width: 70%;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 0 0 1px $glass-border,
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: $gradient-primary;
+    opacity: 0.6;
+  }
+}
+
+// Header
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 .heading {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 3rem;
+  color: $text-primary;
+  font-size: 2rem;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0 0 1rem 0;
-  user-select: none;
+  margin: 0 0 0.5rem 0;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+.subtitle {
+  color: $text-secondary;
+  font-size: 0.95rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+// Form
 .form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
+// Profile Picture Section
+.profilePictureSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 1rem;
+}
+
+.profilePictureContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profilePictureWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: $secondary-bg;
+  border: 3px solid $border-color;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: $accent-green;
+    box-shadow: 0 0 20px $shadow-medium;
+    transform: scale(1.02);
+  }
+}
+
+.profilePicturePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profilePicturePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  background: linear-gradient(145deg, $secondary-bg);
+}
+
+.cameraOverlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  background: $gradient-primary;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid $primary-bg;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 16px $shadow-medium;
+    background: linear-gradient(135deg, $accent-green-hover);
+  }
+  
+  &:active {
+    transform: scale(1.05);
+  }
+}
+
+.uploadLabel {
+  cursor: pointer;
+  color: $primary-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.removeButton {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  background: #ff4757;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
+  border: 2px solid $primary-bg;
+  z-index: 10;
+  
+  &:hover {
+    background: #ff3838;
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.5);
+  }
+  
+  &:active {
+    transform: scale(1.05);
+  }
+}
+
+.uploadInstructions {
+  text-align: center;
+  
+  p {
+    color: $text-secondary;
+    font-size: 0.95rem;
+    margin: 0 0 0.25rem 0;
+    font-weight: 500;
+  }
+  
+  span {
+    color: $text-muted;
+    font-size: 0.8rem;
+  }
+}
+
+// Form Fields
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .formGroup {
   position: relative;
   display: flex;
-  flex-direction: column-reverse;
-  /* This allows floating label above input when focused or filled */
+  flex-direction: column;
 }
 
-.input,
-.textarea {
-  font-family: inherit;
-  font-size: 1rem;
+// Input Styles
+.input, .textarea {
+  background: rgba(42, 42, 42, 0.8);
+  border: 2px solid $border-color;
+  border-radius: 12px;
   padding: 1rem 1rem 1rem 1rem;
-  border-radius: var(--radius);
-  border: 1.5px solid var(--color-border);
-  background: transparent;
-  color: var(--color-text-primary);
-  transition: border-color var(--transition), box-shadow var(--transition);
-  outline-offset: 2px;
-}
-
-.input:focus,
-.textarea:focus {
-  border-color: var(--color-focus);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
-}
-
-.errorInput {
-  border-color: var(--color-error) !important;
-}
-
-.errorMsg {
-  color: var(--color-error);
-  font-size: 0.875rem;
-  margin-top: 0.3rem;
-  user-select: none;
-}
-
-.floatingLabel {
-  pointer-events: none;
-  position: absolute;
-  top: 0.9rem;
-  left: 1rem;
+  color: $text-primary;
   font-size: 1rem;
-  color: var(--color-text-secondary);
-  font-weight: 500;
-  transition:
-    transform var(--transition) ease-in-out,
-    font-size var(--transition) ease-in-out,
-    color var(--transition) ease-in-out;
-  background: var(--color-background);
-  padding: 0 0.3rem;
-  transform-origin: left top;
-}
-
-.input:focus + .floatingLabel,
-.input:not(:placeholder-shown) + .floatingLabel {
-  transform: translateY(-1.65rem) scale(0.8);
-  color: var(--color-focus);
-  font-weight: 600;
-}
-
-.floatingLabelTextarea {
-  pointer-events: none;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 1rem;
-  color: var(--color-text-secondary);
-  font-weight: 500;
-  transition:
-    transform var(--transition) ease-in-out,
-    font-size var(--transition) ease-in-out,
-    color var(--transition) ease-in-out;
-  background: var(--color-background);
-  padding: 0 0.3rem;
-  transform-origin: left top;
-}
-
-.textarea:not(:placeholder-shown) + .floatingLabelTextarea,
-.textarea:focus + .floatingLabelTextarea {
-  transform: translateY(-1.5rem) scale(0.8);
-  color: var(--color-focus);
-  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  backdrop-filter: blur(10px);
+  
+  &::placeholder {
+    color: $text-muted;
+    opacity: 0.6;
+  }
+  
+  &:focus {
+    border-color: $accent-green;
+    box-shadow: 0 0 0 3px $shadow-light;
+    background: rgba(42, 42, 42, 0.95);
+    
+    + .floatingLabel,
+    + .floatingLabelTextarea {
+      transform: translateY(-2.5rem) scale(0.85);
+      color: $accent-green;
+    }
+  }
+  
+  &:not(:placeholder-shown) {
+    + .floatingLabel,
+    + .floatingLabelTextarea {
+      transform: translateY(-2.5rem) scale(0.85);
+      color: $text-secondary;
+    }
+  }
 }
 
 .textarea {
   resize: vertical;
-  min-height: 96px;
+  min-height: 100px;
   font-family: inherit;
+  line-height: 1.5;
+}
+
+.errorInput {
+  border-color: #ff4757 !important;
+  box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2) !important;
+}
+
+// Floating Labels
+.floatingLabel, .floatingLabelTextarea {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  color: $text-muted;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: $primary-bg;
+  padding: 0 0.5rem;
+  transform-origin: left top;
+}
+
+// Error Messages
+.errorMsg {
+  color: #ff4757;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &::before {
+    content: '⚠';
+    font-size: 0.9rem;
+  }
+}
+
+// Button Group
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+// Buttons
+.saveButton, .cancelButton {
+  padding: 0.875rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .saveButton {
-  align-self: flex-start;
-  background-color: var(--color-button-bg);
-  color: var(--color-button-text);
-  font-weight: 700;
-  font-size: 1.125rem;
-  padding: 0.8rem 2.5rem;
-  border-radius: var(--radius);
-  border: none;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 4px 8px var(--shadow-light);
-  transition: background-color var(--transition), transform var(--transition);
+  background: $gradient-primary;
+  color: $primary-bg;
+  flex: 2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px $shadow-medium;
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(-1px);
+  }
 }
 
-.saveButton:hover,
-.saveButton:focus-visible {
-  background-color: #1e293b;
-  transform: scale(1.05);
-  outline-offset: 4px;
-  outline-color: var(--color-focus);
-  outline-style: solid;
-  outline-width: 3px;
+.cancelButton {
+  background: transparent;
+  color: $text-secondary;
+  border: 2px solid $border-color;
+  flex: 1;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: $border-hover;
+    color: $text-primary;
+    transform: translateY(-1px);
+  }
 }
 
-.saveButton:active {
-  transform: scale(0.98);
+// Responsive Design
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .heading {
+    font-size: 1.75rem;
+  }
+  
+  .profilePictureWrapper {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+  }
+  
+  .saveButton, .cancelButton {
+    flex: 1;
+  }
 }
 
 @media (max-width: 480px) {
-  .container {
-    margin: 2rem 1rem 4rem 1rem;
-    padding: 2rem;
+  .card {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
   }
-
-  .heading {
-    font-size: 2.25rem;
+  
+  .profilePictureWrapper {
+    width: 80px;
+    height: 80px;
   }
-
-  .saveButton {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
+  
+  .input, .textarea {
+    padding: 0.875rem;
+    font-size: 0.95rem;
   }
 }
-

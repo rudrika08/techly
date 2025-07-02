@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useReducer } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserDetails } from './../../store/userSlice';
 import SummaryApi from '../../common';
 import { toast } from 'react-toastify';
+import './Nav.css';
 
 const Navbar = () => {
   const user = useSelector(state => state?.user?.user);
@@ -13,13 +13,14 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
+  const [showNavbar, setShowNavbar] = useState(true);
   const dropdownRef = useRef(null);
   const avatarRef = useRef(null);
 
-  // Force re-render when user updates (workaround)
   const [, forceUpdate] = useReducer(x => x + 1, 0);
+  let lastScrollY = useRef(window.scrollY);
 
-  // 👇 Force re-render when user state changes
   useEffect(() => {
     forceUpdate();
   }, [user]);
@@ -28,22 +29,16 @@ const Navbar = () => {
     try {
       const response = await fetch(SummaryApi.logout.url, {
         method: SummaryApi.logout.method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message);
-      } else {
-        toast.success(data.message);
-        dispatch(setUserDetails(null));
-        navigate('/login');
-      }
+      if (!response.ok) throw new Error(data.message);
+      toast.success(data.message);
+      dispatch(setUserDetails(null));
+      navigate('/login');
     } catch (error) {
       toast.error(error.message);
-      console.log(error);
     }
   };
 
@@ -53,70 +48,85 @@ const Navbar = () => {
     setDropdownOpen(prev => !prev);
   };
 
+  const handleThemeToggle = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    document.documentElement.classList.toggle('light-theme');
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (
-        dropdownOpen &&
-        dropdownRef.current &&
-        avatarRef.current &&
-        !dropdownRef.current.contains(e.target) &&
-        !avatarRef.current.contains(e.target)
-      ) {
+      if (dropdownOpen && !dropdownRef.current?.contains(e.target) && !avatarRef.current?.contains(e.target)) {
         setDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownOpen]);
 
   useEffect(() => {
     setDropdownOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/">Techly</Link>
-      </div>
+    <nav className={`navbar ${showNavbar ? 'visible' : 'hidden'}`}>
+      <div className="navbar-container">
+        <div className="navbar-brand">
+          <Link to="/">
+            <span>Techly</span>
+            <div className="brand-dot" />
+          </Link>
+        </div>
 
-      <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/blog">Blogs</Link>
-
-        {user && (
-          <button className="create-blog-button" onClick={() => navigate('/blogCreate')}>
-            Create Blog
-          </button>
-        )}
+        <div className="desktop-nav">
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
+          <Link to="/blog" className={`nav-link ${location.pathname === '/blog' ? 'active' : ''}`}>Blogs</Link>
+          {user && (
+            <Link to="/blogCreate" className="nav-link">Create Blog</Link>
+          )}
+        </div>
 
         {user ? (
           <div className="navbar-user">
-            <div
-              className="user-avatar"
-              ref={avatarRef}
-              onClick={toggleDropdown}
-            >
+            <div className="user-avatar" ref={avatarRef} onClick={toggleDropdown}>
               {user?.profilePic ? (
                 <img src={user.profilePic} alt="User" />
               ) : (
                 <span>{user?.email?.[0]?.toUpperCase() || user?.username?.[0]?.toUpperCase()}</span>
               )}
+              <span className="avatar-status" />
             </div>
 
             {dropdownOpen && (
               <div className="dropdown-menu" ref={dropdownRef}>
-                <Link to="/user-details">Profile</Link>
-                <button onClick={handleLogout}>Logout</button>
+                <Link className="dropdown-item profile-link" to="/user-details">Profile</Link>
+                <button className="dropdown-item logout-btn" onClick={handleLogout}>Logout</button>
               </div>
             )}
           </div>
         ) : (
-          <button className="login-button" onClick={() => navigate('/login')}>
-            Login
-          </button>
+         <div className="auth-buttons">
+  <button className="auth-button login" onClick={() => navigate('/login')}>
+    Login
+  </button>
+  <button className="auth-button signup" onClick={() => navigate('/signup')}>
+    Sign Up
+  </button>
+</div>
+
         )}
       </div>
     </nav>

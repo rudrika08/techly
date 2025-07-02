@@ -79,6 +79,7 @@ const Login = () => {
   
 
   return (
+    <div className="login-page">
     <div className="login-form">
       <h2>Login</h2>
       {error && <div className="error">{error}</div>}
@@ -117,6 +118,7 @@ const Login = () => {
         </span>
       </p>
     </div>
+  </div>
   );
 };
 
