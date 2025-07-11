@@ -24,7 +24,7 @@ router.get('/logout',authToken,userLogOut);
 //Blog
 router.get('/blog',BlogFetch);
 router.post('/blogCreate',authToken,BlogCreate);
-router.get('/blogFetchById',authToken,BlogFetchById);
+router.get('/blogFetchById/:id',authToken,BlogFetchById);
 router.delete('/blogDelete',authToken,BlogDelete);
 router.post('/blogFetchByBlogId',authToken,blogFetchByBlogId);
 router.put('/blogUpdate',authToken,blogUpdate);

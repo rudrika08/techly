@@ -64,7 +64,6 @@ const CreateBlog = () => {
             
             <div className="create-blog-content">
                 <div className="header-section">
-                    <div className="sparkle-icon">✨</div>
                     <h1 className="main-title">Create New</h1>
                     <h2 className="sub-title">Blog</h2>
                     <p className="description">Share your thoughts and insights with the community</p>
