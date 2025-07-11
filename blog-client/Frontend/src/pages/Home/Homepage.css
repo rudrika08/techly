@@ -39,7 +39,7 @@ body {
 /* Hero Section */
 .hero-section {
   text-align: center;
-  padding: 6rem 0 4rem;
+  padding: 3rem 0 2rem;
   position: relative;
 }
 
@@ -47,7 +47,7 @@ body {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 52%;
   transform: translateX(-50%);
   width: 100px;
   height: 2px;
@@ -56,7 +56,7 @@ body {
 
 /* Title styling */
 .title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 4rem);
   font-family: 'Courier New', monospace;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -73,7 +73,7 @@ body {
 }
 
 .title-subtitle {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #999;
   font-weight: 300;
   margin-bottom: 2rem;
@@ -195,8 +195,9 @@ body {
 }
 
 .icon-glow {
-  display: inline-block;
-  padding: 1rem;
+  display:flex;
+  height: 100%;
+  width: 100%;
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -211,9 +212,17 @@ body {
 
 .card-description {
   font-size: 1.1rem;
+  margin-top: -1rem;
   margin-bottom: 2rem;
   font-weight: 500;
   line-height: 1.6;
+}
+.video-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
 }
 
 /* Button styling */
@@ -232,6 +241,7 @@ body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .explore-button::before {
@@ -277,11 +287,12 @@ body {
 
 /* Blog Section */
 .blog-section {
-  padding: 6rem 0;
+  padding: 4rem 0;
   background: linear-gradient(135deg, #0a0a0a, #111111);
   border-radius: 40px;
-  margin: 4rem 4rem;
+  margin: 4rem 3rem;
   position: relative;
+  margin-left: 7rem;
 }
 
 .blog-section::before {

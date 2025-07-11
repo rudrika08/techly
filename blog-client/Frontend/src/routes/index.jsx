@@ -7,41 +7,23 @@ import Signup from './../Authentication/Signup/Signup';
 import AdminPanel from './../pages/AdminPanel/AdminDashboard/AdminDashboard';
 import EditBlogPage from './../pages/AdminPanel/UpdateBlog/UpdateBlog';
 import HomePage from './../pages/Home/Homepage';
-import ProtectedRoute from './../helper/ProtectedRouter';
-
+import BlogDetailPage from '../pages/BlogDetail/BlogDetail';    
 const router = createBrowserRouter([
     {
-        path: '/',  // Home route, pointing to App component
+        path: '/',
         element: <App />,
         children: [
+            { index: true, element: <HomePage /> },
+            { path: '/blog', element: <BlogPage /> },
+            { path: '/blogCreate', element: <BlogCreate /> },
+            { path: '/blog/:id', element: <BlogDetailPage /> },
+            { path: '/login', element: <Login /> },
+            { path: '/signup', element: <Signup /> },
             {
-                index: true,  // Default route
-                element: <HomePage />, // Home page or blog listing
-            },
-            {
-                path: '/blog',  // Blog page
-                element: <BlogPage />,
-            },
-            {
-                path: '/blogCreate',  // Create blog page
-                element: <BlogCreate/>,
-            },
-            {
-                path: '/login',  // Login page
-                element: <Login />,
-            },
-            {
-                path: '/signup',  // Signup page
-                element: <Signup />,
-            },
-            {
-                path: '/user-details',  // Admin or user details page
+                path: '/admin',
                 element: <AdminPanel />,
                 children: [
-                    {
-                        path: 'edit/:id',  // Edit a specific blog post
-                        element: <EditBlogPage />,
-                    },
+                    { path: 'edit/:id', element: <EditBlogPage /> },
                 ],
             },
         ],

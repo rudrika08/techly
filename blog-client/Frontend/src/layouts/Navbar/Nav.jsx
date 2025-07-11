@@ -86,7 +86,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="navbar-brand">
           <Link to="/">
-            <span>Techly</span>
+            <span>Syntra</span>
             <div className="brand-dot" />
           </Link>
         </div>
@@ -94,10 +94,13 @@ const Navbar = () => {
         <div className="desktop-nav">
           <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
           <Link to="/blog" className={`nav-link ${location.pathname === '/blog' ? 'active' : ''}`}>Blogs</Link>
-          {user && (
+          {user ? (
             <Link to="/blogCreate" className="nav-link">Create Blog</Link>
+          ) : (
+            <Link to="/login" className="nav-link">Create Blog</Link>
           )}
         </div>
+
 
         {user ? (
           <div className="navbar-user">
@@ -112,20 +115,20 @@ const Navbar = () => {
 
             {dropdownOpen && (
               <div className="dropdown-menu" ref={dropdownRef}>
-                <Link className="dropdown-item profile-link" to="/user-details">Profile</Link>
+                <Link className="dropdown-item profile-link" to="/admin">Profile</Link>
                 <button className="dropdown-item logout-btn" onClick={handleLogout}>Logout</button>
               </div>
             )}
           </div>
         ) : (
-         <div className="auth-buttons">
-  <button className="auth-button login" onClick={() => navigate('/login')}>
-    Login
-  </button>
-  <button className="auth-button signup" onClick={() => navigate('/signup')}>
-    Sign Up
-  </button>
-</div>
+          <div className="auth-buttons">
+            <button className="auth-button login" onClick={() => navigate('/login')}>
+              Login
+            </button>
+            <button className="auth-button signup" onClick={() => navigate('/signup')}>
+              Sign Up
+            </button>
+          </div>
 
         )}
       </div>

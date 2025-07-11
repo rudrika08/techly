@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Homepage.css";
 import video from "../../assets/vd.mp4";
+import SummaryApi from "../../common";
 
 function Home() {
+  const [latestBlogs, setLatestBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchLatestBlogs = async () => {
+      try {
+        const response = await fetch(SummaryApi.BlogFetch.url, {
+          method: SummaryApi.BlogFetch.method,
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          const sorted = result.data
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, 3);
+          setLatestBlogs(sorted);
+        } else {
+          console.error("Failed to fetch blogs:", result.message);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchLatestBlogs();
+  }, []);
+
   return (
     <div className="container">
       {/* Hero Section */}
       <div className="hero-section">
         <h1 className="title">
-          Life Is Poetry — Let's<br />
-          <span className="title-highlight">Compose It Together</span>
+          Code the Future — One<br />
+          <span className="title-highlight"> Byte at a Time</span>
         </h1>
         <div className="title-subtitle">
           Exploring the art of code, one line at a time
@@ -55,7 +87,7 @@ function Home() {
         {/* Card 3 - Text */}
         <div className="card-text">
           <div className="icon-container">
-            <div className="icon-glow">
+            <div className="icon-glows">
               <img
                 src="https://cdn.prod.website-files.com/66ffb182a2a1dbe73904d0b5/6851a2da737a4d4080d06cf6_download.png"
                 alt="Logo"
@@ -65,12 +97,12 @@ function Home() {
           <p className="card-description">
             Together, we'll master the intricacies of programming and rise above the challenges of the tech world
           </p>
-          <button className="explore-button">
+          <Link to="/blog" className="explore-button">
             <span>Explore More</span>
             <svg className="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -82,77 +114,36 @@ function Home() {
         </div>
 
         <div className="blog-cards">
-          {/* Blog 1 */}
-          <div className="blog-card">
-            <div className="blog-image-container">
-              <img
-                src="https://cdn.prod.website-files.com/66ffb182a2a1dbe73904d0b5/6860ec0a51e34a94844ff28c_3-1-1.jpg"
-                alt="Innovative Tech"
-              />
-              <div className="blog-category">Insights</div>
-            </div>
-            <div className="blog-content">
-              <h3>Innovative Tech Solutions: A Founder's Perspective</h3>
-              <p>
-                In today's rapidly evolving tech landscape, finding innovative solutions to
-                complex problems is crucial for the success of any startup...
-              </p>
-              <div className="blog-meta">
-                <span className="read-time">5 min read</span>
+          {latestBlogs.map((blog, index) => (
+            <div className="blog-card" key={blog._id || index}>
+              <div className="blog-image-container">
+                <img src={blog.image || "fallback.jpg"} alt={blog.title} />
+                <div className="blog-category">{blog.category || "General"}</div>
+              </div>
+              <div className="blog-content">
+                <h3>{blog.title}</h3>
+                <p>
+                  {blog.description?.length > 150
+                    ? blog.description.slice(0, 150) + "..."
+                    : blog.description}
+                </p>
+                <div className="blog-meta">
+                  <span className="read-time">
+                    {blog.readTime || "3 min read"}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Blog 2 */}
-          <div className="blog-card">
-            <div className="blog-image-container">
-              <img
-                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
-                alt="Startup Tips"
-              />
-              <div className="blog-category">Tips</div>
-            </div>
-            <div className="blog-content">
-              <h3>Top 5 Tips for Tech Startup Success</h3>
-              <p>
-                In the ever-evolving world of tech startups, success can often feel elusive.
-                However, with the right strategies and mindset, navigating...
-              </p>
-              <div className="blog-meta">
-                <span className="read-time">3 min read</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Blog 3 */}
-          <div className="blog-card">
-            <div className="blog-image-container">
-              <img
-                src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d"
-                alt="Mastering Coding"
-              />
-              <div className="blog-category">Learning</div>
-            </div>
-            <div className="blog-content">
-              <h3>Mastering Coding: A Journey of Learning</h3>
-              <p>
-                Embarking on the journey of mastering coding can be both challenging and rewarding.
-                As a blogger on a mission to share valuable insights...
-              </p>
-              <div className="blog-meta">
-                <span className="read-time">7 min read</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="blog-button-container">
-          <button className="explore-button secondary">
+          <Link to="/blog" className="explore-button secondary">
             <span>View All Posts</span>
             <svg className="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

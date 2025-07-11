@@ -8,6 +8,7 @@ import Navbar from './layouts/Navbar/Nav';
 import Footer from './layouts/Footer/Footer';
 import './App.css';
 import { Outlet } from 'react-router-dom';
+import { AuthProvider } from './helper/AuthContext';
 const App = () => {
   const dispatch = useDispatch();
   const fetchUser = async () => {
@@ -39,10 +40,12 @@ const App = () => {
 
   return (
     <>
+      <AuthProvider>
       <ToastContainer />
       <Navbar />
       <Outlet /> 
       <Footer />
+      </AuthProvider>
     </>
   );
 };
