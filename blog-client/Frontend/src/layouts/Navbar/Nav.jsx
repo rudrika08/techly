@@ -86,7 +86,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="navbar-brand">
           <Link to="/">
-            <span>Syntra</span>
+            <span>Syntrax</span>
             <div className="brand-dot" />
           </Link>
         </div>
